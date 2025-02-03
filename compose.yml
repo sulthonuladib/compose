@@ -1,0 +1,77 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sulthonuladib
+      MYSQL_USER: sulthonuladib
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - ~/.docker-data/mysql:/var/lib/mysql
+    networks:
+      - dev_network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: sulthonuladib
+    ports:
+      - "27017:27017"
+    volumes:
+      - ~/.docker-data/mongodb:/data/db
+    networks:
+      - dev_network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ~/.docker-data/redis:/data
+    networks:
+      - dev_network
+    command: redis-server --requirepass 123456
+
+  postgresql:
+    image: postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sulthonuladib
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: sulthonuladib
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/.docker-data/postgresql:/var/lib/postgresql/data
+    networks:
+      - dev_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    # environment:
+    #   RABBITMQ_DEFAULT_USER: sulthonuladib
+    #   RABBITMQ_DEFAULT_PASS: 123456
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # Management interface port
+    volumes:
+      - ~/.docker-data/rabbitmq:/var/lib/rabbitmq
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge
