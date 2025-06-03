@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: personal-mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -17,7 +17,7 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: mongodb
+    container_name: personal-mongodb
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -32,7 +32,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: redis
+    container_name: personal-redis
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -44,7 +44,7 @@ services:
 
   postgresql:
     image: postgres:latest
-    container_name: postgres
+    container_name: personal-postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: sulthonuladib
@@ -59,7 +59,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
+    container_name: personal-rabbitmq
     restart: unless-stopped
     # environment:
     #   RABBITMQ_DEFAULT_USER: sulthonuladib
